@@ -217,6 +217,9 @@
       "scenes": [
         "7571e3ca-cecf-4832-92f3-f602ee96c91f@0fc60"
       ]
-    }
+    },
+    "useVertexColors": true,
+    "depthWriteInAlphaModeBlend": true,
+    "dumpMaterials": false
   }
 }
