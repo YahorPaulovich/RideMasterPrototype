@@ -10,12 +10,12 @@ import { Vec3 } from 'cc';
 export class EntryPoint {
 
     private static instance: EntryPoint | null = null;
-    private _sceneManagementService: ISceneManagementService;
-    private _assets: IAssetProviderService;
-    private _gameFactory: IGameFactory;
+    private sceneManagementService: ISceneManagementService;
+    private assets: IAssetProviderService;
+    private gameFactory: IGameFactory;
 
     private constructor() {
-        this.initializeGame();
+        this.initialize();
     }
 
     public static run(): EntryPoint {
@@ -26,13 +26,13 @@ export class EntryPoint {
         return this.instance;
     }
 
-    private async initializeGame(): Promise<void> {
-        this._sceneManagementService = new SceneManagementService();
-        await this._sceneManagementService.loadAsync(AssetAddress.GameScenePath);
+    private async initialize(): Promise<void> {
+        this.sceneManagementService = new SceneManagementService();
+        await this.sceneManagementService.loadAsync(AssetAddress.GameScenePath);
 
-        this._assets = new AssetProviderService();
-        this._gameFactory = new GameFactory(this._assets);
+        this.assets = new AssetProviderService();
+        this.gameFactory = new GameFactory(this.assets);
 
-        this._gameFactory.createCharacter(new Vec3(0, 0, 0));
+        this.gameFactory.createCharacter(new Vec3(0, 0, 0));
     }
 }

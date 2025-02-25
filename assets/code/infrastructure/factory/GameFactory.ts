@@ -4,16 +4,16 @@ import { IGameFactory } from './IGameFactory';
 import { AssetAddress } from '../../services/asset-management/AssetAddress';
 
 export class GameFactory implements IGameFactory {
-    private _assets: IAssetProviderService;
+    private assets: IAssetProviderService;
 
     constructor(assets: IAssetProviderService) {
-        this._assets = assets;
+        this.assets = assets;
     }
 
     public async createPrefab(assetAddress: string, at: Vec3): Promise<Node> {
         let prefab = null;
         try {
-            prefab = await this._assets.instantiate(assetAddress, at);
+            prefab = await this.assets.instantiate(assetAddress, at);
         } catch (error) {
             console.error(`Error creating prefab at ${assetAddress}:`, error);
             throw error;
