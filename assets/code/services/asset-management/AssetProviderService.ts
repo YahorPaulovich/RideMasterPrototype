@@ -1,4 +1,4 @@
-import { Asset, Node, Vec3, Quat, resources, instantiate, Prefab, director, JsonAsset, SpriteFrame, assetManager, ImageAsset, Texture2D } from 'cc';
+import { Asset, Node, Vec3, Quat, resources, instantiate, Prefab, director, SpriteFrame, ImageAsset, Texture2D, Director } from 'cc';
 import IAssetProviderService from './IAssetProviderService';
 
 export class AssetProviderService implements IAssetProviderService {
@@ -22,6 +22,14 @@ export class AssetProviderService implements IAssetProviderService {
     if (asset instanceof Prefab) {
       let node = instantiate(asset);
 
+      if (!director.getScene()) {
+        director.once(Director.EVENT_AFTER_SCENE_LAUNCH, () => {
+            director.getScene()?.addChild(node);
+        });
+      } else {
+        director.getScene().addChild(node);
+      }
+
       if (position) {
         node.setPosition(position);
       }
@@ -32,13 +40,6 @@ export class AssetProviderService implements IAssetProviderService {
 
       if (parent) {
         parent.addChild(node);
-      } else {
-        let currentScene = director.getScene();
-        if (currentScene) {
-          currentScene.addChild(node);
-        } else {
-          console.error('No active scene found. Cannot add prefab to scene.');
-        }
       }
 
       return node;
