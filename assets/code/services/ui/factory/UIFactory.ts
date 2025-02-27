@@ -48,6 +48,6 @@ export class UIFactory implements IUIFactory {
     }
 
     public async createFailView(): Promise<Node | null> {
-        return this.createUIElement(AssetAddress.GameScreenViewPath);
+        return this.createUIElement(AssetAddress.FailViewPath);
     }
 }

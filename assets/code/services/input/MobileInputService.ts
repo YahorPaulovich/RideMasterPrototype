@@ -1,10 +1,11 @@
 import { InputService } from './InputService';
-import { Node, EventTouch, Vec2 } from 'cc';
+import { Node, EventTouch, Vec2, Vec3 } from 'cc';
 
 export class MobileInputService extends InputService {
     private touchNode: Node;
     private startTouchPosition: Vec2 = new Vec2();
     private isTouching: boolean = false;
+    private initialNodeY: number = 0;
 
     public initialize(touchNode: Node): void {
         this.setTouchNode(touchNode);
@@ -16,10 +17,15 @@ export class MobileInputService extends InputService {
     }
 
     public destroy() {
+        // this.touchNode.off(Node.EventType.TOUCH_START, this.handleTouchStart, this);
+        // this.touchNode.off(Node.EventType.TOUCH_MOVE, this.handleTouchMove, this);
+        // this.touchNode.off(Node.EventType.TOUCH_END, this.handleTouchEnd, this);
+        // this.touchNode.off(Node.EventType.TOUCH_CANCEL, this.handleTouchEnd, this);
     }
 
     private setTouchNode(touchNode: Node): void {
         this.touchNode = touchNode;
+        this.initialNodeY = touchNode.position.y;
     }
 
     private handleTouchStart(event: EventTouch) {
@@ -28,15 +34,26 @@ export class MobileInputService extends InputService {
     }
 
     private handleTouchMove(event: EventTouch) {
-        if (!this.isTouching) return;
+        if (!this.isTouching || !this.touchNode) return;
 
-        const currentTouchPosition = event.getLocation();
-        const deltaY = currentTouchPosition.y - this.startTouchPosition.y;
+        let currentTouchPosition = event.getLocation();
+        let deltaY = currentTouchPosition.y - this.startTouchPosition.y;
+
+        let minY = this.initialNodeY - 100;
+        let maxY = this.initialNodeY + 100;
+
+        let newY = this.initialNodeY + deltaY;
+        newY = Math.max(minY, Math.min(maxY, newY));
+
+        this.touchNode.setPosition(new Vec3(this.touchNode.position.x, newY, this.touchNode.position.z));
+        
+        let normalizedDeltaY = (deltaY / 100) * 10;
+        normalizedDeltaY = Math.max(-10, Math.min(10, normalizedDeltaY));
 
         if (deltaY > 10) {
-            this.eventTarget.emit('lever-pulled-up');
+            this.eventTarget.emit('lever-pulled-up', normalizedDeltaY);
         } else if (deltaY < -10) {
-            this.eventTarget.emit('lever-pulled-down');
+            this.eventTarget.emit('lever-pulled-down', normalizedDeltaY);
         }
     }
 

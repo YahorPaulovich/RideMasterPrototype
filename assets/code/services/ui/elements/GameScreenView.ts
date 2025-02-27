@@ -1,8 +1,9 @@
 import { _decorator, Component, Node, Button } from 'cc';
+import { BaseView } from './BaseView';
 const { ccclass, property } = _decorator;
 
 @ccclass('GameScreenView')
-export class GameScreenView extends Component {
+export class GameScreenView extends BaseView {
     @property({ type: Node })
     public pointsView: Node | null = null;
 
@@ -12,7 +13,7 @@ export class GameScreenView extends Component {
     @property({ type: Node })
     private downloadButton: Node | null = null;
 
-    onLoad() {
+    protected onLoad() {
         this.setupButtonListeners();
     }
 
@@ -26,6 +27,6 @@ export class GameScreenView extends Component {
     }
 
     private onDownloadButtonClicked() {
-        console.log('DownloadButton clicked');
+        this.showAds();
     }
 }

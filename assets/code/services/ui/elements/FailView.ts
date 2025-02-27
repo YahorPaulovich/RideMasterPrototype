@@ -1,32 +1,19 @@
-import { _decorator, Button, Component, Node } from 'cc';
+import { _decorator, Button, Component, Node, sys } from 'cc';
+import { BaseView } from './BaseView';
+import { EntryPoint } from '../../../infrastructure/composition-root/EntryPoint';
 const { ccclass, property } = _decorator;
 
 @ccclass('FailView')
-export class FailView extends Component {
+export class FailView extends BaseView {
     @property({ type: Button })
     private retryButton: Button | null = null;
 
-    onLoad() {
-        if (this.retryButton != null) {
-            if (this.retryButton) {
-                this.retryButton.node.on(Button.EventType.CLICK, this.onRetryButtonClicked, this);
-            }
-        }
+    protected onLoad() {
+        this.retryButton.node.on(Button.EventType.CLICK, this.onRetryButtonClicked, this);
     }
 
-    private onRetryButtonClicked() {
-        console.log('RetryButton clicked');
-    }
-
-    public showFailView() {
-        if (this.node) {
-            this.node.active = true;
-        }
-    }
-
-    public hideFailView() {
-        if (this.node) {
-            this.node.active = false;
-        }
+    private async onRetryButtonClicked() {
+        this.showAds();
+        await EntryPoint.restartGame();
     }
 }

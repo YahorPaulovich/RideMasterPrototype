@@ -21,19 +21,17 @@ export default class PlayerInputActions extends Component {
         this.inputService.eventTarget.on('lever-pulled-down', this.handleLeverPulledDown, this);
     }
 
-    onDestroy() {
+    protected onDestroy() {
         this.inputService.eventTarget.off('lever-pulled-up', this.handleLeverPulledUp, this);
         this.inputService.eventTarget.off('lever-pulled-down', this.handleLeverPulledDown, this);
         this.inputService.destroy();
     }
 
-    private handleLeverPulledUp(): void {
-        this.input.y = 1;
-        console.log("Lever pulled up: Accelerate!");
+    private handleLeverPulledUp(deltaY: number): void {
+        this.input.y = deltaY;
     }
     
-    private handleLeverPulledDown(): void {
-        this.input.y = -1;
-        console.log("Lever pulled down: Stop!");
+    private handleLeverPulledDown(deltaY: number): void {
+        this.input.y = deltaY;
     }
 }

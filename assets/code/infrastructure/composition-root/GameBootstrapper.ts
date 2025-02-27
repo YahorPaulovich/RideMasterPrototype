@@ -8,7 +8,7 @@ export default class GameBootstrapper extends Component {
     @property
     autorun: boolean = true;
 
-    async start() {
+    protected async start() {
         if (this.autorun == true) {
             EntryPoint.run();
         }
