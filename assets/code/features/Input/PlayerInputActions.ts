@@ -28,12 +28,12 @@ export default class PlayerInputActions extends Component {
     }
 
     private handleLeverPulledUp(): void {
-        this.input.y += 1;
+        this.input.y = 1;
         console.log("Lever pulled up: Accelerate!");
     }
     
     private handleLeverPulledDown(): void {
-        this.input.y -= 1;
+        this.input.y = -1;
         console.log("Lever pulled down: Stop!");
     }
 }

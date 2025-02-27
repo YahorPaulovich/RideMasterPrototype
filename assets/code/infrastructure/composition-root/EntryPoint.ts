@@ -53,9 +53,13 @@ export class EntryPoint {
         // ui
         await this.initUI();
 
-        // player creation
+        // game creation
         this.gameFactory = new GameFactory(this.assets);
+
+        // level creation
+        await this.initLevel();
         
+        // player creation
         let player = await this.initPlayer();
         await this.initMainCamera(player);
     }
@@ -67,9 +71,14 @@ export class EntryPoint {
         this.leverButton = gameScreenView.getComponent(GameScreenView).leverButton;
     }
 
+    private async initLevel() {
+        await this.gameFactory.createRoad(new Vec3(0, 0, 0));
+    }
+
     private async initPlayer() {
         this.player = await this.gameFactory.createPlayer(new Vec3(-45.178, 0.001, 0));
         this.player.getComponent(PlayerInputActions).inject(this.input, this.leverButton);
+        this.player.getComponent(PlayerMovement).enableInput();
         return this.player;
     }
 

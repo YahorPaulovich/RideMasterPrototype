@@ -4,5 +4,5 @@ const { ccclass } = _decorator;
 
 @ccclass('PlayerInput')
 export default class PlayerInput extends Component {
-    public y: number;
+    public y: number = 0;
 }
