@@ -1506,9 +1506,9 @@
     "__prefab": {
       "__id__": 73
     },
-    "acceleration": 15,
-    "maxSpeed": 30,
-    "deceleration": 12,
+    "acceleration": 12,
+    "maxSpeed": 15,
+    "deceleration": 6,
     "_id": ""
   },
   {

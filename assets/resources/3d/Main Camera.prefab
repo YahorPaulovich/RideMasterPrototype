@@ -187,7 +187,7 @@
     },
     "_projection": 1,
     "_priority": 0,
-    "_fov": 90,
+    "_fov": 40,
     "_fovAxis": 0,
     "_orthoHeight": 10,
     "_near": 1,
@@ -238,11 +238,24 @@
     "distance": 20,
     "height": 12,
     "smoothSpeed": 0.1,
+    "positionOffset": {
+      "__type__": "cc.Vec3",
+      "x": -39.553,
+      "y": 16.918,
+      "z": 18.949
+    },
     "lookAtOffset": {
       "__type__": "cc.Vec3",
-      "x": 4.7,
+      "x": 10,
       "y": -0.2,
       "z": -4.6
+    },
+    "rotationOffset": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
     },
     "_id": ""
   },

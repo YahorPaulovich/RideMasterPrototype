@@ -1,4 +1,4 @@
-import { Node, RigidBody, Vec3 } from 'cc';
+import { Node, Quat, RigidBody, tween, Vec3 } from 'cc';
 
 import { ISceneManagementService } from '../../services/scene-management/ISceneManagementService';
 import { SceneManagementService } from '../../services/scene-management/SceneManagementService';
@@ -167,11 +167,20 @@ export class EntryPoint {
     }
 
     private handlePlayerRanOverRoadBlock(roadBlockNode: Node): void {
-        const rigidBody = roadBlockNode.getComponent(RigidBody);
-        if (rigidBody) {
-            rigidBody.mass = 5;
-            rigidBody.useGravity = true;
-        }
+        let startPosition = roadBlockNode.position.clone();
+        let endPosition = new Vec3(startPosition.x, startPosition.y - 150, startPosition.z);
+        let endRotation = Quat.fromEuler(new Quat(), 0, 0, 90);
+
+        let fallDelay = 0.2;
+        let fallDuration = 8;
+
+        tween(roadBlockNode)
+            .delay(fallDelay)
+            .to(fallDuration, { position: endPosition, rotation: endRotation }, { easing: 'sineOut' })
+            .call(() => {
+                roadBlockNode.destroy();
+            })
+            .start();
     }
 
     private async handleCoinCollection(): Promise<void> {
