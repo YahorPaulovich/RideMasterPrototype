@@ -1,11 +1,16 @@
 import { _decorator, Component, Node, Button } from 'cc';
 import { BaseView } from './BaseView';
+import { PointsView } from './PointsView';
+import { FlyRewardView } from '../../../features/reward/FlyRewardView';
 const { ccclass, property } = _decorator;
 
 @ccclass('GameScreenView')
 export class GameScreenView extends BaseView {
-    @property({ type: Node })
-    public pointsView: Node | null = null;
+    @property({ type: PointsView })
+    public pointsView: PointsView | null = null;
+
+    @property({ type: FlyRewardView })
+    public flyRewardView: FlyRewardView | null = null;
 
     @property({ type: Node })
     public leverButton: Node | null = null;

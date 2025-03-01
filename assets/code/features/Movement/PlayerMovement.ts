@@ -1,11 +1,8 @@
 import { _decorator, Component, RigidBody, Node, Vec3, ConstantForce, EventTarget, Quat } from 'cc';
-import PlayerInput from '../Input/PlayerInput';
+import PlayerInput from '../input/PlayerInput';
+import { PlayerEvents } from '../../data/PlayerEvents';
 
 const { ccclass, property } = _decorator;
-
-export const PlayerEvents = {
-    PLAYER_FALL: 'player-fall',
-};
 
 @ccclass('PlayerMovement')
 export default class PlayerMovement extends Component {
@@ -21,12 +18,17 @@ export default class PlayerMovement extends Component {
     @property public maxSpeed: number = 15;
     @property public deceleration: number = 5;
 
-    private eventTarget: EventTarget = new EventTarget();
-
+    public eventTarget: EventTarget;
+    
     private initialize(): void {
+        this.eventTarget = new EventTarget();
+
         this.input = this.node.getComponent(PlayerInput);
+
         this.rigidBody = this.node.getComponent(RigidBody);
+        this.rigidBody.useCCD = true;
         this.rigidBody.angularFactor.set(new Vec3(0, 0, 0));
+
         this.constantForce = this.node.getComponent(ConstantForce);
     }
 
@@ -103,5 +105,9 @@ export default class PlayerMovement extends Component {
 
     public onFall(callback: () => void) {
         this.eventTarget.on(PlayerEvents.PLAYER_FALL, callback);
+    }
+
+    protected onDestroy(): void {
+        this.eventTarget.removeAll(this);
     }
 }

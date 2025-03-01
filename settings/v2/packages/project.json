@@ -12,8 +12,9 @@
     "sleepThreshold": 0.1,
     "fixedTimeStep": 0.008333,
     "gravity": {
-      "y": -20
+      "y": -10
     },
-    "allowSleep": false
+    "allowSleep": false,
+    "maxSubSteps": 1
   }
 }

@@ -1,4 +1,4 @@
-import { Node, Vec3 } from 'cc';
+import { Node, RigidBody, Vec3 } from 'cc';
 
 import { ISceneManagementService } from '../../services/scene-management/ISceneManagementService';
 import { SceneManagementService } from '../../services/scene-management/SceneManagementService';
@@ -11,10 +11,17 @@ import { IUIFactory } from '../../services/ui/factory/IUIFactory';
 import { UIFactory } from '../../services/ui/factory/UIFactory';
 import { IGameFactory } from '../factory/IGameFactory';
 import { GameFactory } from '../factory/GameFactory';
-import PlayerInputActions from '../../features/Input/PlayerInputActions';
+import PlayerInputActions from '../../features/input/PlayerInputActions';
 import { GameScreenView } from '../../services/ui/elements/GameScreenView';
-import PlayerMovement from '../../features/Movement/PlayerMovement';
-import { PlayerFollowCamera } from '../../features/Camera/PlayerFollowCamera';
+import PlayerMovement from '../../features/movement/PlayerMovement';
+import { PlayerFollowCamera } from '../../features/camera/PlayerFollowCamera';
+import { IPersistentProgressService } from '../../services/persistent-progress/IPersistentProgressService';
+import { PlayerProgress } from '../../data/PlayerProgress';
+import { PersistentProgressService } from '../../services/persistent-progress/PersistentProgressService';
+import Player from '../../features/Player';
+import { Coin } from '../../data/collectibles/Coin';
+import { PlayerEvents } from '../../data/PlayerEvents';
+import { FlyRewardView } from '../../features/reward/FlyRewardView';
 
 export class EntryPoint {
 
@@ -22,11 +29,13 @@ export class EntryPoint {
     private sceneManagementService: ISceneManagementService;
     private assets: IAssetProviderService;
     private input: IInputService;
+    private persistentProgress: IPersistentProgressService
     private uiFactory: IUIFactory;
     private gameFactory: IGameFactory;
 
     private player: Node;
-    private gameScreenView: Node;
+    private gameScreen: Node;
+    private flyReward: FlyRewardView;
     private leverButton: Node;
 
     private constructor() {
@@ -50,13 +59,24 @@ export class EntryPoint {
 
     private cleanup(): void {
         if (this.player) {
+            let player = this.player.getComponent(Player);
+            if (player) {
+                player.eventTarget.off(PlayerEvents.PLAYER_RAN_OVER_ROAD_BLOCK);
+                player.eventTarget.off(PlayerEvents.PLAYER_COLLECT_COLLECTIBLE);
+            }
+    
+            let playerMovement = this.player.getComponent(PlayerMovement);
+            if (playerMovement) {
+                playerMovement.eventTarget.off(PlayerEvents.PLAYER_FALL);
+            }
+    
             this.player.destroy();
             this.player = null;
         }
 
-        if (this.gameScreenView) {
-            this.gameScreenView.destroy();
-            this.gameScreenView = null;
+        if (this.gameScreen) {
+            this.gameScreen.destroy();
+            this.gameScreen = null;
         }
 
         if (this.leverButton) {
@@ -76,6 +96,9 @@ export class EntryPoint {
         // input
         this.input = new MobileInputService();
 
+        // stats
+        this.initPlayerProgress();
+
         // ui
         await this.initUI();
 
@@ -89,37 +112,44 @@ export class EntryPoint {
         let player = await this.initPlayer();
         await this.initMainCamera(player);
 
+        player.getComponent(Player).eventTarget.on(PlayerEvents.PLAYER_RAN_OVER_ROAD_BLOCK, (roadBlockNode) => {
+            this.handlePlayerRanOverRoadBlock(roadBlockNode);
+        });
+
+        player.getComponent(Player).onCollectCollectible((collectible) => {
+            if (collectible instanceof Coin) {
+                this.handleCoinCollection();
+            }
+        });
+
         player.getComponent(PlayerMovement).onFall(async () => {
             await this.showFailScreen();
         });
     }
 
-    private async initUI() {
+    private async initUI(): Promise<void> {
         this.uiFactory = new UIFactory(this.assets);
-        //await this.uiFactory.createBackground();
-        this.gameScreenView = await this.uiFactory.createGameScreenView();
-        this.leverButton = this.gameScreenView.getComponent(GameScreenView).leverButton;
+        this.gameScreen = await this.uiFactory.createGameScreenView();
+        
+        let gameScreenView = this.gameScreen.getComponent(GameScreenView);
+        this.leverButton = gameScreenView.leverButton;
+
+        this.flyReward = gameScreenView.flyRewardView;
+        this.flyReward.inject(this.uiFactory);
     }
 
-    private async showFailScreen() {
-        this.gameScreenView.destroy();
-        this.gameScreenView = null;
-
-        await this.uiFactory.createFailView();
-    }
-
-    private async initLevel() {
+    private async initLevel(): Promise<void> {
         await this.gameFactory.createRoad(new Vec3(0, 0, 0));
     }
 
-    private async initPlayer() {
+    private async initPlayer(): Promise<Node> {
         this.player = await this.gameFactory.createPlayer(new Vec3(-45.178, 0.0015, 0));
         this.player.getComponent(PlayerInputActions).inject(this.input, this.leverButton);
         this.player.getComponent(PlayerMovement).enableInput();
         return this.player;
     }
 
-    private async initMainCamera(player: Node) {
+    private async initMainCamera(player: Node): Promise<void> {
         let mainCamera = await this.gameFactory.createMainCamera(
             new Vec3(-45.178001, 11.833999, 19.999997),
             new Vec3(-28.791458, 2.29061, 0)
@@ -127,5 +157,45 @@ export class EntryPoint {
 
         // player camera root
         mainCamera.getComponent(PlayerFollowCamera).setTarget(player);
+    }
+
+    private initPlayerProgress(): void { 
+        let playerProgress = new PlayerProgress("game");
+        this.persistentProgress = new PersistentProgressService(playerProgress);
+
+        console.log(`Coins ${this.persistentProgress.progress.coins}`);
+    }
+
+    private handlePlayerRanOverRoadBlock(roadBlockNode: Node): void {
+        const rigidBody = roadBlockNode.getComponent(RigidBody);
+        if (rigidBody) {
+            rigidBody.mass = 5;
+            rigidBody.useGravity = true;
+        }
+    }
+
+    private async handleCoinCollection(): Promise<void> {
+        this.setReward(1);
+    }
+
+    private setReward(count: number = 1): void {
+        let playerPosition = this.player.getWorldPosition();
+        let startPosition = new Vec3(playerPosition.x, playerPosition.y, -1);
+
+        this.flyReward.fly(startPosition, count, () => {
+            this.persistentProgress.progress.coins += 1;
+            let coins = this.persistentProgress.progress.coins;
+
+            let gameScreenView = this.gameScreen.getComponent(GameScreenView);
+            gameScreenView.pointsView.updateUI(coins);
+        });
+    }
+
+    private async showFailScreen(): Promise<void> {
+        this.gameScreen.destroy();
+        this.gameScreen = null;
+        await this.uiFactory.createFailView();
+
+        this.player.getComponent(RigidBody).mass = 900;
     }
 }

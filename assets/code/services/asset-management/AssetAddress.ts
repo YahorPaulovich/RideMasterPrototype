@@ -13,7 +13,8 @@ export class AssetAddress {
     public static readonly UIRootPath = "ui/UI";
     public static readonly CanvasPath = "ui/Canvas";
     public static readonly EventSystemPath = "ui/EventSystem";
-    public static readonly BackgroundPath = "ui/Background";
     public static readonly GameScreenViewPath = "ui/GameScreenView";
     public static readonly FailViewPath = "ui/FailView";
+    public static readonly FlyRewardViewPath = "ui/FlyRewardView";
+    public static readonly FlyRewardItemPath = "ui/FlyRewardItem";
 }

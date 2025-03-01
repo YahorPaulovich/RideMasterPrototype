@@ -156,7 +156,7 @@
     "asset": null,
     "fileId": "ae1d6bcb-2033-46ed-9178-af086f6d98c7",
     "instance": null,
-    "targetOverrides": null
+    "targetOverrides": []
   },
   {
     "__type__": "cc.SceneGlobals",
@@ -186,14 +186,14 @@
     "_skyColorHDR": {
       "__type__": "cc.Vec4",
       "x": 0.2,
-      "y": 0.5,
+      "y": 0.4980392156862745,
       "z": 0.8,
       "w": 0.520833125
     },
     "_skyColor": {
       "__type__": "cc.Vec4",
       "x": 0.2,
-      "y": 0.5,
+      "y": 0.4980392156862745,
       "z": 0.8,
       "w": 0.520833125
     },

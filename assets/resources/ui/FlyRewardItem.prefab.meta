@@ -2,12 +2,12 @@
   "ver": "1.1.43",
   "importer": "prefab",
   "imported": true,
-  "uuid": "3c6e4346-2144-4dbf-9a93-f86b1a67729a",
+  "uuid": "ecc64bd5-bf53-49e1-9c39-6d2156f4033a",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "Road"
+    "syncNodeName": "FlyRewardItem"
   }
 }

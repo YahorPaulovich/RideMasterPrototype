@@ -2,12 +2,12 @@
   "ver": "1.1.43",
   "importer": "prefab",
   "imported": true,
-  "uuid": "3c6e4346-2144-4dbf-9a93-f86b1a67729a",
+  "uuid": "85e96e00-cbd2-4b51-ac22-2b49aafaf27b",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "Road"
+    "syncNodeName": "Background_Plane"
   }
 }

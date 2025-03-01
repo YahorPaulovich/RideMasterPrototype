@@ -536,6 +536,12 @@
     "__prefab": {
       "__id__": 25
     },
+    "value": {
+      "__id__": 17
+    },
+    "coinIcon": {
+      "__id__": 8
+    },
     "_id": ""
   },
   {
@@ -551,6 +557,7 @@
       "__id__": 0
     },
     "fileId": "b9ofrjKX5BObKfouqb7J+N",
-    "instance": null
+    "instance": null,
+    "targetOverrides": null
   }
 ]

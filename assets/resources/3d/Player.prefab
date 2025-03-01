@@ -70,10 +70,13 @@
       },
       {
         "__id__": 76
+      },
+      {
+        "__id__": 78
       }
     ],
     "_prefab": {
-      "__id__": 78
+      "__id__": 80
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -163,7 +166,7 @@
     },
     "_materials": [
       {
-        "__uuid__": "7b8a1835-9a3b-4f86-b045-292d87001c80",
+        "__uuid__": "49f5df9a-3461-467b-bffd-f303ddd82ed8",
         "__expectedType__": "cc.Material"
       }
     ],
@@ -280,7 +283,7 @@
     },
     "_materials": [
       {
-        "__uuid__": "7b8a1835-9a3b-4f86-b045-292d87001c80",
+        "__uuid__": "49f5df9a-3461-467b-bffd-f303ddd82ed8",
         "__expectedType__": "cc.Material"
       }
     ],
@@ -397,7 +400,7 @@
     },
     "_materials": [
       {
-        "__uuid__": "7b8a1835-9a3b-4f86-b045-292d87001c80",
+        "__uuid__": "49f5df9a-3461-467b-bffd-f303ddd82ed8",
         "__expectedType__": "cc.Material"
       }
     ],
@@ -514,7 +517,7 @@
     },
     "_materials": [
       {
-        "__uuid__": "7b8a1835-9a3b-4f86-b045-292d87001c80",
+        "__uuid__": "49f5df9a-3461-467b-bffd-f303ddd82ed8",
         "__expectedType__": "cc.Material"
       }
     ],
@@ -631,7 +634,7 @@
     },
     "_materials": [
       {
-        "__uuid__": "7b8a1835-9a3b-4f86-b045-292d87001c80",
+        "__uuid__": "49f5df9a-3461-467b-bffd-f303ddd82ed8",
         "__expectedType__": "cc.Material"
       }
     ],
@@ -748,7 +751,7 @@
     },
     "_materials": [
       {
-        "__uuid__": "7b8a1835-9a3b-4f86-b045-292d87001c80",
+        "__uuid__": "49f5df9a-3461-467b-bffd-f303ddd82ed8",
         "__expectedType__": "cc.Material"
       }
     ],
@@ -865,7 +868,7 @@
     },
     "_materials": [
       {
-        "__uuid__": "7b8a1835-9a3b-4f86-b045-292d87001c80",
+        "__uuid__": "49f5df9a-3461-467b-bffd-f303ddd82ed8",
         "__expectedType__": "cc.Material"
       }
     ],
@@ -982,7 +985,7 @@
     },
     "_materials": [
       {
-        "__uuid__": "7b8a1835-9a3b-4f86-b045-292d87001c80",
+        "__uuid__": "49f5df9a-3461-467b-bffd-f303ddd82ed8",
         "__expectedType__": "cc.Material"
       }
     ],
@@ -1099,7 +1102,7 @@
     },
     "_materials": [
       {
-        "__uuid__": "7b8a1835-9a3b-4f86-b045-292d87001c80",
+        "__uuid__": "49f5df9a-3461-467b-bffd-f303ddd82ed8",
         "__expectedType__": "cc.Material"
       }
     ],
@@ -1216,7 +1219,7 @@
     },
     "_materials": [
       {
-        "__uuid__": "7b8a1835-9a3b-4f86-b045-292d87001c80",
+        "__uuid__": "49f5df9a-3461-467b-bffd-f303ddd82ed8",
         "__expectedType__": "cc.Material"
       }
     ],
@@ -1442,7 +1445,7 @@
     "value": 2
   },
   {
-    "__type__": "810b07zpg1JDJPmAIgnoGia",
+    "__type__": "05761jjh15AHL5IObHq8Xzl",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -1456,7 +1459,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "aad55xdDlDh6bElSJ4dDS4"
+    "fileId": "62jBl48JxLJpLNc4odOPx/"
   },
   {
     "__type__": "c7b2fTyTgxJn7PQGMiotSMM",
@@ -1476,7 +1479,7 @@
     "fileId": "c6KLxf6PhNLLj6MLP1MF+5"
   },
   {
-    "__type__": "fb5eatr/4ZKQaYgapRk84y0",
+    "__type__": "810b07zpg1JDJPmAIgnoGia",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -1486,9 +1489,26 @@
     "__prefab": {
       "__id__": 71
     },
-    "acceleration": 10,
-    "maxSpeed": 20,
-    "deceleration": 5,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "aad55xdDlDh6bElSJ4dDS4"
+  },
+  {
+    "__type__": "fb5eatr/4ZKQaYgapRk84y0",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "__prefab": {
+      "__id__": 73
+    },
+    "acceleration": 15,
+    "maxSpeed": 30,
+    "deceleration": 12,
     "_id": ""
   },
   {
@@ -1504,7 +1524,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 73
+      "__id__": 75
     },
     "_group": 1,
     "_type": 1,
@@ -1540,7 +1560,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 75
+      "__id__": 77
     },
     "_material": null,
     "_isTrigger": false,
@@ -1571,7 +1591,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 77
+      "__id__": 79
     },
     "_force": {
       "__type__": "cc.Vec3",
