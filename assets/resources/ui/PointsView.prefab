@@ -432,7 +432,7 @@
       "__id__": 18
     },
     "_lineHeight": 40,
-    "_string": "<color=#ffffff>0</color>",
+    "_string": "<b><color=#ffffff>0</color></b>",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_fontSize": 60,
