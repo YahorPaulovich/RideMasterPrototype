@@ -21,7 +21,7 @@ import { PersistentProgressService } from '../../services/persistent-progress/Pe
 import Player from '../../features/Player';
 import { Coin } from '../../data/collectibles/Coin';
 import { PlayerEvents } from '../../data/PlayerEvents';
-import { FlyRewardView } from '../../features/reward/FlyRewardView';
+import { FlyRewardView } from '../../services/ui/elements/reward/FlyRewardView';
 
 export class EntryPoint {
 
