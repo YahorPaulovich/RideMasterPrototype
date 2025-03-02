@@ -22,6 +22,7 @@ import Player from '../../features/Player';
 import { Coin } from '../../data/collectibles/Coin';
 import { PlayerEvents } from '../../data/PlayerEvents';
 import { FlyRewardView } from '../../services/ui/elements/reward/FlyRewardView';
+import { RoadBlockWeight } from '../../data/RoadBlockWeight';
 
 export class EntryPoint {
 
@@ -204,9 +205,13 @@ export class EntryPoint {
         let endPosition = new Vec3(startPosition.x, endPositionY, startPosition.z);
         let endRotation = Quat.fromEuler(new Quat(), 0, 0, 90);
     
-        let fallDelay = 0.2;
+        let roadBlockWeight = roadBlockNode.getComponent(RoadBlockWeight);
+        let fallDelay = roadBlockWeight.value;
         let baseFallDuration = Math.random() * 30 + 30;
         let fallDuration = EntryPoint.calculateAnimationDuration(baseFallDuration);
+        if (roadBlockWeight.value === 0) {
+            fallDuration *= 0.5;
+        }
     
         tween(roadBlockNode)
             .delay(fallDelay)
