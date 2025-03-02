@@ -198,14 +198,14 @@ export class EntryPoint {
     private handlePlayerRanOverRoadBlock(roadBlockNode: Node): void {
         let startPosition = roadBlockNode.position.clone();
 
-        let randomOffset = Math.random() * 50;
-        let endPositionY = startPosition.y - 100 + randomOffset;
+        let randomOffset = Math.random() * 20;
+        let endPositionY = startPosition.y - 40 + randomOffset;
     
         let endPosition = new Vec3(startPosition.x, endPositionY, startPosition.z);
         let endRotation = Quat.fromEuler(new Quat(), 0, 0, 90);
     
         let fallDelay = 0.2;
-        let baseFallDuration = Math.random() * 24 + 24;
+        let baseFallDuration = Math.random() * 30 + 30;
         let fallDuration = EntryPoint.calculateAnimationDuration(baseFallDuration);
     
         tween(roadBlockNode)
