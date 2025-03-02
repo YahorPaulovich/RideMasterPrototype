@@ -13,4 +13,8 @@ export default class GameBootstrapper extends Component {
             EntryPoint.run();
         }
     }
+
+    protected update(dt: number): void {
+        EntryPoint.update(dt);
+    }
 }

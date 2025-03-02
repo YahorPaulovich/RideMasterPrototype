@@ -8,11 +8,11 @@ export class PointsView extends Component {
     @property(Node)
     public coinIcon: Node = null!;
 
-    public updateUI(coins: number): void { 
+    public updateUI(coins: number): void {
         this.receivePoints(coins);
     }
 
-    receivePoints(coins: number) {
+    private receivePoints(coins: number): void {
         this.coinIcon.setScale(new Vec3(1, 1, 1));
         tween(this.coinIcon)
             .to(0.08, { scale: new Vec3(1.1, 1.1, 1.1) })

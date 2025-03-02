@@ -62,7 +62,7 @@ export default class PlayerMovement extends Component {
     }
 
     private handleFallDetection(): void {
-        if (this.node.position.y < -10) {
+        if (this.node.position.y < -1) {
             this.disableInput();
             this.eventTarget.emit(PlayerEvents.PLAYER_FALL);
             return;

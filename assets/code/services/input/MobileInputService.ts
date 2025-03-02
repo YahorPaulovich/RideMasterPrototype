@@ -6,6 +6,7 @@ export class MobileInputService extends InputService {
     private startTouchPosition: Vec2 = new Vec2();
     private isTouching: boolean = false;
     private initialNodeY: number = 0;
+    private sensitivity: number = 1.5;
 
     public initialize(touchNode: Node): void {
         this.setTouchNode(touchNode);
@@ -39,10 +40,10 @@ export class MobileInputService extends InputService {
         let currentTouchPosition = event.getLocation();
         let deltaY = currentTouchPosition.y - this.startTouchPosition.y;
 
-        let minY = this.initialNodeY - 100;
-        let maxY = this.initialNodeY + 100;
+        let minY = this.initialNodeY - 150;
+        let maxY = this.initialNodeY + 150;
 
-        let newY = this.initialNodeY + deltaY;
+        let newY = this.initialNodeY + deltaY * this.sensitivity;
         newY = Math.max(minY, Math.min(maxY, newY));
 
         this.touchNode.setPosition(new Vec3(this.touchNode.position.x, newY, this.touchNode.position.z));

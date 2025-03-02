@@ -21,8 +21,11 @@ export class FlyRewardView extends Component {
     }
 
     public async fly(startPos: Vec3, count: number, callback?: Function) {
+        if (this.targetNode == null && this.parentNode == null) {
+            return;
+        }
+        
         this.onFlyRewardItemReachedTarget = callback || null;
-
         let targetWorldPosition  = this.targetNode.getWorldPosition();
         let targetLocalPosition = this.parentNode.inverseTransformPoint(new Vec3(), targetWorldPosition);
 

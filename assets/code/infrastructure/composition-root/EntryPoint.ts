@@ -38,8 +38,37 @@ export class EntryPoint {
     private flyReward: FlyRewardView;
     private leverButton: Node;
 
+    private static framesPerSecond: number = 60;
+    private static fpsSamples: number[] = [];
+    private static FPS_SAMPLE_SIZE: number = 10;
+
     private constructor() {
         this.initialize();
+
+        EntryPoint.framesPerSecond = 60;
+        EntryPoint.fpsSamples = [];
+    }
+
+    private static calculateFramesPerSecond(deltaTime: number): void {
+        if (deltaTime > 0) {
+            this.fpsSamples.push(1 / deltaTime);
+            if (this.fpsSamples.length > EntryPoint.FPS_SAMPLE_SIZE) {
+                this.fpsSamples.shift();
+            }
+            this.framesPerSecond = this.fpsSamples.reduce((a, b) => a + b, 0) / this.fpsSamples.length;
+        } else {
+            this.framesPerSecond = this.framesPerSecond || 60;
+        }
+    }
+
+    public static update(deltaTime: number): void {
+        this.calculateFramesPerSecond(deltaTime);
+    }
+
+    private static calculateAnimationDuration(baseDuration: number): number {
+        let fps = EntryPoint.framesPerSecond || 60;
+        let fallDuration = baseDuration * (60 / fps);
+        return Math.min(4, fallDuration);
     }
 
     public static run(): EntryPoint {
@@ -168,17 +197,24 @@ export class EntryPoint {
 
     private handlePlayerRanOverRoadBlock(roadBlockNode: Node): void {
         let startPosition = roadBlockNode.position.clone();
-        let endPosition = new Vec3(startPosition.x, startPosition.y - 150, startPosition.z);
+
+        let randomOffset = Math.random() * 50;
+        let endPositionY = startPosition.y - 100 + randomOffset;
+    
+        let endPosition = new Vec3(startPosition.x, endPositionY, startPosition.z);
         let endRotation = Quat.fromEuler(new Quat(), 0, 0, 90);
-
+    
         let fallDelay = 0.2;
-        let fallDuration = 8;
-
+        let baseFallDuration = Math.random() * 24 + 24;
+        let fallDuration = EntryPoint.calculateAnimationDuration(baseFallDuration);
+    
         tween(roadBlockNode)
             .delay(fallDelay)
             .to(fallDuration, { position: endPosition, rotation: endRotation }, { easing: 'sineOut' })
             .call(() => {
-                roadBlockNode.destroy();
+                if (roadBlockNode.isValid) {
+                    roadBlockNode.destroy();
+                }
             })
             .start();
     }
@@ -196,7 +232,8 @@ export class EntryPoint {
             let coins = this.persistentProgress.progress.coins;
 
             let gameScreenView = this.gameScreen.getComponent(GameScreenView);
-            gameScreenView.pointsView.updateUI(coins);
+            let pointsView = gameScreenView.pointsView;
+            pointsView.updateUI(coins);
         });
     }
 
