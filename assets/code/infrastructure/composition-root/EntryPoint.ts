@@ -1,4 +1,4 @@
-import { Node, Quat, RigidBody, tween, Vec3 } from 'cc';
+import { Node, Quat, RigidBody, tween, Vec3, Animation } from 'cc';
 
 import { ISceneManagementService } from '../../services/scene-management/ISceneManagementService';
 import { SceneManagementService } from '../../services/scene-management/SceneManagementService';
@@ -153,7 +153,13 @@ export class EntryPoint {
         });
 
         player.getComponent(PlayerMovement).onFall(async () => {
-            await this.showFailScreen();
+            player.getComponent(RigidBody).isKinematic = true;
+            let playerAnimation = player.getComponent(Animation);
+            playerAnimation.play('machineCollapse');
+            playerAnimation.once(Animation.EventType.FINISHED, async () => {
+                player.getComponent(RigidBody).isStatic = true;
+                await this.showFailScreen();
+            });
         });
     }
 
@@ -216,11 +222,6 @@ export class EntryPoint {
         tween(roadBlockNode)
             .delay(fallDelay)
             .to(fallDuration, { position: endPosition, rotation: endRotation }, { easing: 'sineOut' })
-            .call(() => {
-                if (roadBlockNode.isValid) {
-                    roadBlockNode.destroy();
-                }
-            })
             .start();
     }
 
@@ -246,7 +247,5 @@ export class EntryPoint {
         this.gameScreen.destroy();
         this.gameScreen = null;
         await this.uiFactory.createFailView();
-
-        this.player.getComponent(RigidBody).mass = 900;
     }
 }

@@ -48,8 +48,8 @@ export class MobileInputService extends InputService {
 
         this.touchNode.setPosition(new Vec3(this.touchNode.position.x, newY, this.touchNode.position.z));
         
-        let normalizedDeltaY = (deltaY / 100) * 10;
-        normalizedDeltaY = Math.max(-10, Math.min(10, normalizedDeltaY));
+        let normalizedDeltaY = (deltaY) * 20;
+        normalizedDeltaY = Math.max(-20, Math.min(20, normalizedDeltaY));
 
         if (deltaY > 10) {
             this.eventTarget.emit('lever-pulled-up', normalizedDeltaY);
