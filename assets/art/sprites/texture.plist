@@ -4,146 +4,133 @@
     <dict>
     <key>frames</key>
     <dict>
-        <key>bg</key>
+        <key>btn_download</key>
         <dict>
         <key>frame</key>
-        <string>{{0,0}, {4096,4096}}</string>
+        <string>{{0,0}, {549,150}}</string>
         <key>offset</key>
         <string>{0,0}</string>
         <key>rotated</key>
         <false/>
         <key>sourceColorRect</key>
-        <string>{{0,0}, {4096,4096}}</string>
-        <key>sourceSize</key>
-        <string>{4096,4096}</string>
-        </dict>
-      <key>btn_download</key>
-        <dict>
-        <key>frame</key>
-        <string>{{0,4096}, {549,150}}</string>
-        <key>offset</key>
-        <string>{0,0}</string>
-        <key>rotated</key>
-        <false/>
-        <key>sourceColorRect</key>
-        <string>{{0,4096}, {549,150}}</string>
+        <string>{{0,0}, {549,150}}</string>
         <key>sourceSize</key>
         <string>{549,150}</string>
         </dict>
       <key>draggable_plate</key>
         <dict>
         <key>frame</key>
-        <string>{{0,4246}, {314,459}}</string>
+        <string>{{0,150}, {314,459}}</string>
         <key>offset</key>
         <string>{0,0}</string>
         <key>rotated</key>
         <false/>
         <key>sourceColorRect</key>
-        <string>{{0,4246}, {314,459}}</string>
+        <string>{{0,150}, {314,459}}</string>
         <key>sourceSize</key>
         <string>{314,459}</string>
         </dict>
       <key>btn_play_now</key>
         <dict>
         <key>frame</key>
-        <string>{{314,4246}, {436,175}}</string>
+        <string>{{314,150}, {436,175}}</string>
         <key>offset</key>
         <string>{0,0}</string>
         <key>rotated</key>
         <false/>
         <key>sourceColorRect</key>
-        <string>{{314,4246}, {436,175}}</string>
+        <string>{{314,150}, {436,175}}</string>
         <key>sourceSize</key>
         <string>{436,175}</string>
         </dict>
       <key>btn_try_again</key>
         <dict>
         <key>frame</key>
-        <string>{{750,4246}, {431,172}}</string>
+        <string>{{314,325}, {431,172}}</string>
         <key>offset</key>
         <string>{0,0}</string>
         <key>rotated</key>
         <false/>
         <key>sourceColorRect</key>
-        <string>{{750,4246}, {431,172}}</string>
+        <string>{{314,325}, {431,172}}</string>
         <key>sourceSize</key>
         <string>{431,172}</string>
         </dict>
       <key>bar_plate</key>
         <dict>
         <key>frame</key>
-        <string>{{314,4421}, {415,199}}</string>
+        <string>{{0,609}, {415,199}}</string>
         <key>offset</key>
         <string>{0,0}</string>
         <key>rotated</key>
         <false/>
         <key>sourceColorRect</key>
-        <string>{{314,4421}, {415,199}}</string>
+        <string>{{0,609}, {415,199}}</string>
         <key>sourceSize</key>
         <string>{415,199}</string>
         </dict>
       <key>logo</key>
         <dict>
         <key>frame</key>
-        <string>{{0,4705}, {366,202}}</string>
+        <string>{{0,808}, {366,202}}</string>
         <key>offset</key>
         <string>{0,0}</string>
         <key>rotated</key>
         <false/>
         <key>sourceColorRect</key>
-        <string>{{0,4705}, {366,202}}</string>
+        <string>{{0,808}, {366,202}}</string>
         <key>sourceSize</key>
         <string>{366,202}</string>
         </dict>
       <key>hand</key>
         <dict>
         <key>frame</key>
-        <string>{{0,4907}, {323,305}}</string>
+        <string>{{0,1010}, {323,305}}</string>
         <key>offset</key>
         <string>{0,0}</string>
         <key>rotated</key>
         <false/>
         <key>sourceColorRect</key>
-        <string>{{0,4907}, {323,305}}</string>
+        <string>{{0,1010}, {323,305}}</string>
         <key>sourceSize</key>
         <string>{323,305}</string>
         </dict>
       <key>cross</key>
         <dict>
         <key>frame</key>
-        <string>{{0,5212}, {315,315}}</string>
+        <string>{{0,1315}, {315,315}}</string>
         <key>offset</key>
         <string>{0,0}</string>
         <key>rotated</key>
         <false/>
         <key>sourceColorRect</key>
-        <string>{{0,5212}, {315,315}}</string>
+        <string>{{0,1315}, {315,315}}</string>
         <key>sourceSize</key>
         <string>{315,315}</string>
         </dict>
       <key>draggable</key>
         <dict>
         <key>frame</key>
-        <string>{{4096,0}, {290,139}}</string>
+        <string>{{549,0}, {290,139}}</string>
         <key>offset</key>
         <string>{0,0}</string>
         <key>rotated</key>
         <false/>
         <key>sourceColorRect</key>
-        <string>{{4096,0}, {290,139}}</string>
+        <string>{{549,0}, {290,139}}</string>
         <key>sourceSize</key>
         <string>{290,139}</string>
         </dict>
       <key>coin</key>
         <dict>
         <key>frame</key>
-        <string>{{4096,139}, {91,90}}</string>
+        <string>{{750,150}, {91,90}}</string>
         <key>offset</key>
         <string>{0,0}</string>
         <key>rotated</key>
         <false/>
         <key>sourceColorRect</key>
-        <string>{{4096,139}, {91,90}}</string>
+        <string>{{750,150}, {91,90}}</string>
         <key>sourceSize</key>
         <string>{91,90}</string>
         </dict>
