@@ -88,7 +88,7 @@ export class EntryPoint {
     }
 
     private cleanup(): void {
-        if (this.player) {
+        if (this.player && this.player.isValid) {
             let player = this.player.getComponent(Player);
             if (player) {
                 player.eventTarget.off(PlayerEvents.PLAYER_RAN_OVER_ROAD_BLOCK);
@@ -104,12 +104,12 @@ export class EntryPoint {
             this.player = null;
         }
 
-        if (this.gameScreen) {
+        if (this.gameScreen && this.gameScreen.isValid) {
             this.gameScreen.destroy();
             this.gameScreen = null;
         }
 
-        if (this.leverButton) {
+        if (this.leverButton && this.leverButton.isValid) {
             this.leverButton.destroy();
             this.leverButton = null;
         }

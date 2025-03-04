@@ -10,7 +10,7 @@ export default class PlayerMovement extends Component {
     private rigidBody: RigidBody;
     private constantForce: ConstantForce;
 
-    private isInputEnabled: boolean = false;
+    private isEnabled: boolean = false;
     private speedMultiplier: number = 20;
     private magnitude: number = 0;
 
@@ -33,7 +33,7 @@ export default class PlayerMovement extends Component {
     }
 
     protected update(dt: number): void {
-        if (!this.isInputEnabled) return;
+        if (!this.isEnabled) return;
 
         this.handleFallDetection();
 
@@ -44,21 +44,6 @@ export default class PlayerMovement extends Component {
         } else if (this.input.y < 0) {
             this.brake(dt);
         }
-
-        this.fixRotation();
-        this.fixPosition();
-    }
-
-    private fixRotation(): void {
-        let currentRotation = this.node.rotation;
-        let fixedRotation = new Quat();
-        Quat.fromEuler(fixedRotation, currentRotation.x, currentRotation.y, 0);
-        this.node.rotation = fixedRotation;
-    }
-
-    private fixPosition(): void {
-        let currentPosition = this.node.position;
-        this.node.setPosition(new Vec3(currentPosition.x, currentPosition.y, 0));
     }
 
     private handleFallDetection(): void {
@@ -96,11 +81,11 @@ export default class PlayerMovement extends Component {
 
     public enableInput(): void {
         this.initialize();
-        this.isInputEnabled = true;
+        this.isEnabled = true;
     }
 
     public disableInput(): void {
-        this.isInputEnabled = false;
+        this.isEnabled = false;
     }
 
     public onFall(callback: () => void) {

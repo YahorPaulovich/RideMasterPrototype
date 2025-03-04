@@ -32,7 +32,7 @@ export class PlayerFollowCamera extends Component {
     }
 
     protected update(deltaTime: number) {
-        if (!this.target) return;
+        if (!this.target || this.target.position == null) return;
 
         let targetPosition = this.target.position.clone();
         let desiredPosition = new Vec3(

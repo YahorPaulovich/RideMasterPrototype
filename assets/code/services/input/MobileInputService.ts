@@ -26,6 +26,7 @@ export class MobileInputService extends InputService {
 
     private setTouchNode(touchNode: Node): void {
         this.touchNode = touchNode;
+        this.touchNode.position = new Vec3(0, 0, 0);
         this.initialNodeY = touchNode.position.y;
     }
 
